@@ -1,0 +1,89 @@
+<div class="search-container">
+  <h1>Movie Search</h1>
+
+  <form [formGroup]="searchForm" class="search-form">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Search for movies...</mat-label>
+      <input matInput formControlName="query" appAlphanumericOnly />
+      <mat-error
+        *ngIf="searchForm.get('query')?.hasError('minlength') && searchForm.get('query')?.dirty"
+      >
+        Please enter at least 3 characters
+      </mat-error>
+      <mat-error
+        *ngIf="searchForm.get('query')?.hasError('pattern') && searchForm.get('query')?.dirty"
+      >
+        Only alphanumeric characters are allowed
+      </mat-error>
+    </mat-form-field>
+  </form>
+
+  <div class="content-container">
+    <div *ngIf="loading && movies.length === 0" class="content-area">
+      <div class="loading-state">
+        <app-loading-spinner></app-loading-spinner>
+      </div>
+    </div>
+
+    <div
+      *ngIf="!loading && movies.length === 0 && searchForm.get('query')?.value"
+      class="content-area"
+    >
+      <div class="no-results">No movies found for your search.</div>
+    </div>
+
+    <div
+      *ngIf="movies.length > 0"
+      class="content-area"
+      infiniteScroll
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="300"
+      [infiniteScrollDisabled]="loading || loadingMore || !hasMoreMovies"
+      (scrolled)="onScrollDown()"
+    >
+      <div class="selected-actions-container" [class.has-selected]="selectedMovies.size > 0">
+        <div class="selected-actions" *ngIf="selectedMovies.size > 0">
+          <span
+            >{{ selectedMovies.size }}
+            {{ selectedMovies.size === 1 ? 'movie' : 'movies' }} selected</span
+          >
+          <button mat-raised-button color="primary" [matMenuTriggerFor]="collectionsMenu">
+            Add to collection
+          </button>
+          <mat-menu #collectionsMenu="matMenu">
+            <button
+              mat-menu-item
+              *ngFor="let collection of collections"
+              (click)="addToCollection(collection.id)"
+            >
+              {{ collection.title }}
+            </button>
+            <button mat-menu-item (click)="createNewCollection()">
+              <mat-icon>add</mat-icon> Create new collection
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+
+      <div class="movie-grid">
+        <app-movie-card
+          *ngFor="let movie of movies; trackBy: trackByMovieId"
+          [movie]="movie"
+          [selectable]="true"
+          [selected]="selectedMovies.has(movie.id)"
+          (select)="toggleMovieSelection(movie.id)"
+          (view)="viewMovieDetails($event)"
+        >
+        </app-movie-card>
+      </div>
+
+      <div *ngIf="loadingMore" class="loading-more">
+        <app-loading-spinner></app-loading-spinner>
+      </div>
+
+      <div *ngIf="!hasMoreMovies && movies.length > 0" class="no-more-results">
+        <p>No more movies to load</p>
+      </div>
+    </div>
+  </div>
+</div>

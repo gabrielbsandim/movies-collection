@@ -1,0 +1,65 @@
+<div class="collection-detail-container">
+  <div class="collection-header">
+    <button mat-icon-button (click)="goBack()" aria-label="Go back">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <div *ngIf="collection" class="collection-info">
+      <h1>{{ collection.title }}</h1>
+      <p class="collection-description">
+        {{ collection.description || 'No description available.' }}
+      </p>
+      <div class="collection-stats">
+        <div class="stat-item">
+          <mat-icon>movie</mat-icon>
+          <span>{{ collection.movies.length }} movie(s)</span>
+        </div>
+        <div class="stat-item" *ngIf="collection.movies.length > 0">
+          <mat-icon>date_range</mat-icon>
+          <span>Last updated: {{ getLastUpdated() | date: 'medium' }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="collection-actions" *ngIf="collection">
+    <button mat-raised-button (click)="editCollection()" class="action-edit">
+      <mat-icon>edit</mat-icon> Edit Collection
+    </button>
+    <button
+      mat-raised-button
+      (click)="removeAllMovies()"
+      [disabled]="!collection.movies.length"
+      class="action-remove-all"
+    >
+      <mat-icon>delete_sweep</mat-icon> Remove All Movies
+    </button>
+    <button mat-raised-button (click)="deleteCollection()" class="action-delete">
+      <mat-icon>delete</mat-icon> Delete Collection
+    </button>
+    <button mat-raised-button color="primary" [routerLink]="['/']" class="action-search">
+      <mat-icon>search</mat-icon> Search Movies
+    </button>
+  </div>
+
+  <div *ngIf="collection && collection.movies.length === 0" class="no-movies">
+    <mat-icon class="empty-icon">movie_filter</mat-icon>
+    <h3>This collection is empty</h3>
+    <p>Start adding movies to your collection to see them here.</p>
+    <button mat-raised-button color="primary" [routerLink]="['/']">
+      <mat-icon>search</mat-icon> Search Movies
+    </button>
+  </div>
+
+  <div *ngIf="collection && collection.movies.length > 0" class="movies-container">
+    <h2 class="movies-title">Movies in this collection</h2>
+    <div class="movies-grid">
+      <app-movie-card
+        *ngFor="let movie of collection.movies; trackBy: trackByMovieId"
+        [movie]="movie"
+        (view)="viewMovieDetails($event)"
+        (remove)="removeMovie($event)"
+      >
+      </app-movie-card>
+    </div>
+  </div>
+</div>

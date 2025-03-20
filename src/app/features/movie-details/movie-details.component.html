@@ -1,0 +1,214 @@
+<div class="movie-details-container">
+  <div *ngIf="loading" class="loading-spinner">
+    <app-loading-spinner></app-loading-spinner>
+  </div>
+
+  <div *ngIf="!loading && movie" class="movie-details">
+    <div class="movie-header">
+      <h1>{{ movie.title }}</h1>
+      <div class="genres-header" *ngIf="movie.genres && movie.genres.length > 0">
+        <div class="genre-chips-container">
+          <mat-chip *ngFor="let genre of movie.genres" color="primary" class="genre-chip">{{
+            genre.name
+          }}</mat-chip>
+        </div>
+      </div>
+    </div>
+
+    <div class="movie-content">
+      <div class="movie-poster-column">
+        <div class="movie-poster">
+          <img
+            [src]="
+              movie.poster_path
+                ? 'https://image.tmdb.org/t/p/w500' + movie.poster_path
+                : 'assets/images/no-poster.jpg'
+            "
+            [alt]="movie.title"
+            class="poster-image"
+          />
+        </div>
+
+        <div class="movie-actions">
+          <div class="add-to-collection" *ngIf="collections.length > 0">
+            <button
+              mat-raised-button
+              color="primary"
+              [matMenuTriggerFor]="collectionsMenu"
+              class="action-button"
+            >
+              <mat-icon>playlist_add</mat-icon> Add to Collection
+            </button>
+            <mat-menu #collectionsMenu="matMenu">
+              <button
+                mat-menu-item
+                *ngFor="let collection of collections"
+                (click)="addToCollection(collection.id)"
+              >
+                {{ collection.name }}
+              </button>
+            </mat-menu>
+          </div>
+        </div>
+
+        <app-rating
+          [value]="userRating"
+          [isSubmitting]="isSubmittingRating"
+          [isSubmitted]="isRatingSubmitted"
+          (valueChange)="onRatingValueChange($event)"
+          (submit)="rateMovie()"
+        >
+        </app-rating>
+      </div>
+
+      <div class="movie-info-column">
+        <div class="info-section movie-highlights">
+          <div class="ratings-badges">
+            <div class="rating-badge" *ngIf="movie.vote_average">
+              <mat-icon class="star-icon">star</mat-icon>
+              <span>{{ movie.vote_average | number: '1.1-1' }}</span>
+              <small *ngIf="movie.vote_count">({{ movie.vote_count }})</small>
+            </div>
+            <div class="release-date" *ngIf="movie.release_date">
+              <mat-icon>calendar_today</mat-icon>
+              <span>{{ movie.release_date | date: 'yyyy' }}</span>
+            </div>
+            <div class="runtime-badge" *ngIf="movie.runtime">
+              <mat-icon>timer</mat-icon>
+              <span>{{ movie.runtime }} min</span>
+            </div>
+            <div class="revenue-badge" *ngIf="movie.revenue && movie.revenue > 0">
+              <mat-icon>attach_money</mat-icon>
+              <span>{{ movie.revenue | currency: 'USD' : 'symbol' : '1.0-0' }}</span>
+            </div>
+            <div class="language-badge" *ngIf="movie.original_language">
+              <mat-icon>language</mat-icon>
+              <span>{{ movie.original_language | uppercase }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-section synopsis-section">
+          <h2>Synopsis</h2>
+          <p class="movie-overview" [innerHTML]="movie.overview || 'No synopsis available.'"></p>
+        </div>
+
+        <div class="details-columns">
+          <div class="details-column">
+            <div
+              class="info-section"
+              *ngIf="movie.production_companies && movie.production_companies.length > 0"
+            >
+              <h2>Production</h2>
+              <div class="companies-grid">
+                <div class="company-item" *ngFor="let company of movie.production_companies">
+                  <div class="company-logo" *ngIf="company.logo_path">
+                    <img
+                      [src]="'https://image.tmdb.org/t/p/w200' + company.logo_path"
+                      [alt]="company.name"
+                    />
+                  </div>
+                  <div class="company-name">{{ company.name }}</div>
+                  <div class="company-country" *ngIf="company.origin_country">
+                    ({{ company.origin_country }})
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="info-section"
+              *ngIf="movie.production_countries && movie.production_countries.length > 0"
+            >
+              <h2>Countries</h2>
+              <div class="countries-list">
+                <span *ngFor="let country of movie.production_countries; let last = last">
+                  {{ country.name }}{{ !last ? ', ' : '' }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="details-column">
+            <div class="info-section details-grid">
+              <div class="detail-item" *ngIf="movie.release_date">
+                <h3>Release Date</h3>
+                <p>{{ movie.release_date | date: 'MM/dd/yyyy' }}</p>
+              </div>
+
+              <div class="detail-item" *ngIf="movie.budget">
+                <h3>Budget</h3>
+                <p>{{ movie.budget | currency: 'USD' : 'symbol' : '1.0-0' }}</p>
+              </div>
+
+              <div class="detail-item" *ngIf="movie.revenue">
+                <h3>Revenue</h3>
+                <p>{{ movie.revenue | currency: 'USD' : 'symbol' : '1.0-0' }}</p>
+              </div>
+
+              <div
+                class="detail-item"
+                *ngIf="movie.original_title && movie.original_title !== movie.title"
+              >
+                <h3>Original Title</h3>
+                <p>{{ movie.original_title }}</p>
+              </div>
+
+              <div class="detail-item" *ngIf="movie.popularity">
+                <h3>Popularity</h3>
+                <p>{{ movie.popularity | number: '1.0-0' }}</p>
+              </div>
+
+              <div class="detail-item" *ngIf="movie.status">
+                <h3>Status</h3>
+                <p>{{ movie.status }}</p>
+              </div>
+
+              <div
+                class="detail-item"
+                *ngIf="movie.spoken_languages && movie.spoken_languages.length > 0"
+              >
+                <h3>Languages</h3>
+                <p>
+                  <span *ngFor="let language of movie.spoken_languages; let last = last">
+                    {{ language.name }}{{ !last ? ', ' : '' }}
+                  </span>
+                </p>
+              </div>
+            </div>
+
+            <div class="info-section" *ngIf="movie.homepage || movie.imdb_id">
+              <h2>Links</h2>
+              <div class="external-links">
+                <a
+                  mat-raised-button
+                  color="primary"
+                  [href]="movie.homepage"
+                  target="_blank"
+                  *ngIf="movie.homepage"
+                >
+                  <mat-icon>language</mat-icon> Official Website
+                </a>
+                <a
+                  mat-raised-button
+                  color="accent"
+                  [href]="'https://www.imdb.com/title/' + movie.imdb_id"
+                  target="_blank"
+                  *ngIf="movie.imdb_id"
+                >
+                  <mat-icon>movie</mat-icon> IMDB
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && !movie" class="no-movie">
+    <mat-icon>movie_off</mat-icon>
+    <p>Movie not found</p>
+    <button mat-raised-button color="primary" (click)="goBack()">Back to search</button>
+  </div>
+</div>

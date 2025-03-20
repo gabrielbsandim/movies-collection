@@ -1,0 +1,82 @@
+<div class="collections-container">
+  <div class="collections-header">
+    <h1>My Collections</h1>
+    <button
+      mat-fab
+      color="primary"
+      class="create-btn"
+      (click)="createCollection()"
+      matTooltip="Create new collection"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
+  <div *ngIf="collections.length === 0" class="no-collections">
+    <mat-icon class="empty-icon">movie_filter</mat-icon>
+    <h2>No collections found</h2>
+    <p>You haven't created any collections yet. Create a new collection to get started!</p>
+    <button mat-raised-button color="primary" (click)="createCollection()">
+      <mat-icon>add</mat-icon> New Collection
+    </button>
+  </div>
+
+  <div class="collections-grid">
+    <div
+      class="collection-card-wrapper"
+      *ngFor="let collection of collections; trackBy: trackByCollectionId"
+    >
+      <mat-card class="collection-card" [class.empty-collection]="collection.movies.length === 0">
+        <div class="card-content-wrapper" (click)="viewCollection(collection.id)">
+          <div class="collection-preview" *ngIf="collection.movies.length > 0">
+            <div class="poster-grid">
+              <div
+                class="poster-item"
+                *ngFor="let movie of collection.movies.slice(0, 4); let i = index"
+              >
+                <img
+                  [src]="
+                    movie.poster_path
+                      ? 'https://image.tmdb.org/t/p/w200' + movie.poster_path
+                      : 'assets/images/no-poster.jpg'
+                  "
+                  [alt]="movie.title"
+                />
+              </div>
+              <div class="movie-count" *ngIf="collection.movies.length > 4">
+                +{{ collection.movies.length - 4 }}
+              </div>
+            </div>
+          </div>
+
+          <div class="empty-collection-placeholder" *ngIf="collection.movies.length === 0">
+            <mat-icon>movie</mat-icon>
+            <span>Empty collection</span>
+          </div>
+
+          <mat-card-content>
+            <mat-card-title>{{ collection.title }}</mat-card-title>
+            <mat-card-subtitle>{{ collection.movies.length }} movie(s)</mat-card-subtitle>
+            <p *ngIf="collection.description" class="collection-description">
+              {{ collection.description }}
+            </p>
+          </mat-card-content>
+        </div>
+
+        <mat-card-actions>
+          <button mat-button color="primary" (click)="viewCollection(collection.id)">
+            <mat-icon>visibility</mat-icon> View Details
+          </button>
+          <button
+            mat-button
+            color="warn"
+            (click)="deleteCollection($event, collection.id)"
+            matTooltip="Delete Collection"
+          >
+            <mat-icon>delete</mat-icon> Delete
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

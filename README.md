@@ -1,59 +1,127 @@
-# MovieCollectionsApp
+# 🎬 Movie Collections App
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.3.
+![Angular CI](https://github.com/yourusername/movie-collections-app/workflows/Angular%20CI/badge.svg)
+![Angular](https://img.shields.io/badge/Angular-19.x-DD0031?style=flat&logo=angular)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat&logo=typescript)
+![License](https://img.shields.io/badge/license-MIT-green)
 
-## Development server
+A modern application for managing your movie collections, built with Angular 19 and Material Design. Organize, rate, and track your favorite films in personalized collections.
 
-To start a local development server, run:
+![App Demo](https://via.placeholder.com/800x400?text=Movie+Collections+App)
+
+## ✨ Features
+
+- 🎭 Movie search and discovery
+- 📚 Create and manage custom collections
+- ⭐ Rate movies
+- 🔍 Detailed movie information view
+- 🌓 Light and dark theme support
+- 📱 Responsive design for mobile and desktop
+
+## 🛠️ Technologies
+
+- [Angular 19](https://angular.io/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Angular Material](https://material.angular.io/)
+- [RxJS](https://rxjs.dev/)
+- [TMDb API](https://www.themoviedb.org/documentation/api)
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (18.x or higher)
+- npm (or yarn)
+- Angular CLI (`npm install -g @angular/cli`)
+
+### Installation
+
+1. Clone this repository:
+
+   ```bash
+   git clone https://github.com/yourusername/movie-collections-app.git
+   cd movie-collections-app
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Configure environment variables:
+
+   # Edit the .env file with your settings, including TMDb API key
+
+   ```
+
+   ```
+
+### Running Locally
 
 ```bash
-ng serve
+npm run start
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## 🧪 Testing
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Running Unit Tests
 
 ```bash
-ng generate component component-name
+npm run test
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Linting
 
 ```bash
-ng generate --help
+npm run lint
 ```
 
-## Building
-
-To build the project run:
+### Code Formatting
 
 ```bash
-ng build
+npm run format
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## 📁 Project Structure
 
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
+```
+src/
+├── app/
+│   ├── core/              # Services, models, and other core resources
+│   ├── features/          # Feature-level components (collections, search, etc.)
+│   │   ├── collections/   # Collection management features
+│   │   ├── movie-details/ # Movie detail view
+│   │   └── search/        # Movie search
+│   └── shared/            # Shared components and utilities
+├── assets/                # Images, fonts, and other static resources
+└── environments/          # Environment configurations
 ```
 
-## Running end-to-end tests
+## 🤝 Contributing
 
-For end-to-end (e2e) testing, run:
+Contributions are welcome! Feel free to open an issue or submit a pull request.
 
-```bash
-ng e2e
-```
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'feat: Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## 📝 License
 
-## Additional Resources
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 🙏 Acknowledgements
+
+- [The Movie Database (TMDb)](https://www.themoviedb.org/) for the movie API
+- [Angular Team](https://angular.io/) for the amazing framework
+- [Material Design Team](https://material.io/) for the design system
+
+---
+
+<p align="center">
+  Developed with ❤️ by <a href="https://github.com/gabrielbsandim">Gabriel Bastos Sandim</a>
+</p>

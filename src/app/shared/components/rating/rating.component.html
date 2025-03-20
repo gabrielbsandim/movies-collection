@@ -1,0 +1,8 @@
+<div class="rating-container">
+  <div class="rating-stars">
+    <mat-icon class="star" *ngFor="let star of stars" [ngClass]="star.class">{{
+      star.icon
+    }}</mat-icon>
+  </div>
+  <span class="rating-value" *ngIf="showValue">{{ displayRating }}</span>
+</div>

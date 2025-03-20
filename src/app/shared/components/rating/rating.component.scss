@@ -1,0 +1,56 @@
+.rating-container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.rating-stars {
+  display: flex;
+  align-items: center;
+}
+
+.rating-value {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--accent-color, white);
+  margin-left: 4px;
+}
+
+.star {
+  color: #ffd700;
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &.half {
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: 'star';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 50%;
+      overflow: hidden;
+      color: #ffd700;
+    }
+
+    &::after {
+      content: 'star_border';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50%;
+      overflow: hidden;
+      color: #ffd700;
+    }
+  }
+
+  &.empty {
+    color: rgba(255, 215, 0, 0.3);
+  }
+}

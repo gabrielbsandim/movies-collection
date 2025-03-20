@@ -1,0 +1,66 @@
+<div class="collection-create-container">
+  <div class="collection-header">
+    <button mat-icon-button (click)="cancel()" aria-label="Go back">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h1>Create New Collection</h1>
+  </div>
+
+  <form [formGroup]="collectionForm" (ngSubmit)="createCollection()" class="collection-form">
+    <div class="form-instructions">
+      <mat-icon>info</mat-icon>
+      <p>
+        Create a new collection to organize your favorite movies. Give it a meaningful title and
+        description.
+      </p>
+    </div>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Title</mat-label>
+      <mat-icon matPrefix>title</mat-icon>
+      <input
+        matInput
+        formControlName="title"
+        placeholder="Enter collection title"
+        appAlphanumericOnly
+      />
+      <mat-hint>Choose a unique name for your collection</mat-hint>
+      <mat-error *ngIf="collectionForm.get('title')?.hasError('required')">
+        Title is required
+      </mat-error>
+      <mat-error *ngIf="collectionForm.get('title')?.hasError('minlength')">
+        Title must be at least 3 characters
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Description</mat-label>
+      <mat-icon matPrefix>description</mat-icon>
+      <textarea
+        matInput
+        formControlName="description"
+        placeholder="Enter collection description"
+        rows="4"
+      >
+      </textarea>
+      <mat-hint>Describe what kind of movies this collection will contain</mat-hint>
+      <mat-error *ngIf="collectionForm.get('description')?.hasError('required')">
+        Description is required
+      </mat-error>
+      <mat-error *ngIf="collectionForm.get('description')?.hasError('minlength')">
+        Description must be at least 10 characters
+      </mat-error>
+    </mat-form-field>
+
+    <div class="form-actions">
+      <button mat-button type="button" (click)="cancel()">
+        <mat-icon>close</mat-icon>
+        Cancel
+      </button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="collectionForm.invalid">
+        <mat-icon>add_circle</mat-icon>
+        Create Collection
+      </button>
+    </div>
+  </form>
+</div>

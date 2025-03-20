@@ -1,0 +1,33 @@
+<mat-card
+  class="movie-card"
+  [class.selectable]="selectable"
+  [class.selected]="selected"
+  (click)="selectable ? onSelect() : onView($event)"
+>
+  <div class="movie-poster">
+    <img [src]="posterUrl(movie.poster_path)" [alt]="movie.title" appLazyImg />
+
+    <div class="movie-actions">
+      <button mat-icon-button color="primary" (click)="onView($event)" matTooltip="View details">
+        <mat-icon>info</mat-icon>
+      </button>
+
+      <ng-container *ngIf="remove.observed">
+        <button mat-icon-button color="warn" (click)="onRemove($event)" matTooltip="Remove">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </ng-container>
+    </div>
+
+    <div *ngIf="showRating && movie.vote_average" class="movie-rating">
+      <app-rating [rating]="movie.vote_average" [showValue]="true"></app-rating>
+    </div>
+  </div>
+
+  <mat-card-content>
+    <h3 class="movie-title">{{ movie.title }}</h3>
+    <p class="movie-release-date" *ngIf="movie.release_date">
+      {{ movie.release_date | date: 'yyyy' }}
+    </p>
+  </mat-card-content>
+</mat-card>

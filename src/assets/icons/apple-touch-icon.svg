@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
+  <defs>
+    <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5c6bc0" />
+      <stop offset="100%" stop-color="#3949ab" />
+    </linearGradient>
+  </defs>
+
+  <rect width="180" height="180" rx="40" ry="40" fill="url(#iconGradient)" />
+
+  <g transform="translate(90, 90) scale(2.5)">
+    <rect x="-12" y="-10" width="24" height="20" rx="2" ry="2" fill="white" opacity="0.9" />
+
+    <circle cx="-8" cy="-6" r="1.5" fill="#3949ab" />
+    <circle cx="-8" cy="-0" r="1.5" fill="#3949ab" />
+    <circle cx="-8" cy="6" r="1.5" fill="#3949ab" />
+
+    <circle cx="8" cy="-6" r="1.5" fill="#3949ab" />
+    <circle cx="8" cy="-0" r="1.5" fill="#3949ab" />
+    <circle cx="8" cy="6" r="1.5" fill="#3949ab" />
+  </g>
+</svg>
