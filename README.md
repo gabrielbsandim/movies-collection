@@ -1,13 +1,10 @@
 # 🎬 Movie Collections App
 
-![Angular CI](https://github.com/yourusername/movie-collections-app/workflows/Angular%20CI/badge.svg)
 ![Angular](https://img.shields.io/badge/Angular-19.x-DD0031?style=flat&logo=angular)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat&logo=typescript)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 A modern application for managing your movie collections, built with Angular 19 and Material Design. Organize, rate, and track your favorite films in personalized collections.
-
-![App Demo](https://via.placeholder.com/800x400?text=Movie+Collections+App)
 
 ## ✨ Features
 
@@ -47,14 +44,6 @@ A modern application for managing your movie collections, built with Angular 19 
 
    ```bash
    npm install
-   ```
-
-3. Configure environment variables:
-
-   # Edit the .env file with your settings, including TMDb API key
-
-   ```
-
    ```
 
 ### Running Locally
